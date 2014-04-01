@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<!-- Hello World Servlet -->
+	<servlet>
+		<servlet-name>HelloWorld</servlet-name>
+		<servlet-class>hello.world.HelloWorldServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HelloWorld</servlet-name>
+		<url-pattern>/hello</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PublicUser</servlet-name>
+		<servlet-class>hello.world.PublicUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicUser</servlet-name>
+		<url-pattern>/user</url-pattern>
+	</servlet-mapping>
+
+	<!-- Private User Servlet resa privata dalla constraint di sicureza -->
+	<!-- https://developers.google.com/appengine/docs/java/config/webxml#Security_and_Authentication -->
+	<servlet>
+		<servlet-name>PrivateUser</servlet-name>
+		<servlet-class>hello.world.PrivateUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PrivateUser</servlet-name>
+		<url-pattern>/private/user</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Datastore</servlet-name>
+		<servlet-class>hello.world.DatastoreServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Datastore</servlet-name>
+		<url-pattern>/private/datastore</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Memcache</servlet-name>
+		<servlet-class>hello.world.MemcacheServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Memcache</servlet-name>
+		<url-pattern>/private/memcache</url-pattern>
+	</servlet-mapping>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>private</web-resource-name>
+			<url-pattern>/private/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
